@@ -1,0 +1,23 @@
+{
+  "name": "mawebdk/utc-datetime",
+  "description": "Representation of a UTC date and time with easy mocking of current date and time for testing.",
+  "license": "BSD-2-Clause",
+  "require": {
+    "php": "^8.3.6",
+    "mawebdk/clock": "^1.0.0",
+    "mawebdk/preg-match": "^1.0.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^12.0.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "MawebDK\\UtcDateTime\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "MawebDK\\UtcDateTime\\Test\\": "test/"
+    }
+  }
+}
