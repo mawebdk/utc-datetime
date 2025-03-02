@@ -404,7 +404,7 @@ class UtcDateTimeTest extends TestCase
         return [
             '0999-12-31 23:59:59.999999' => [
                 'mysqlDateTime6'           => '0999-12-31 23:59:59.999999',
-                'expectedExceptionMessage' => 'MySQL date and time "0999-12-31 23:59:59.999999" is equal to Unix timestamp -30610224001, which is less than minimum supported Unix timestamp -30610224000.',
+                'expectedExceptionMessage' => 'MySQL date and time "0999-12-31 23:59:59.999999" is less than minimum supported MySQL date and time "1000-01-01 00:00:00.000000".',
             ],
             '10000-01-01 00.00.00.000000' => [
                 'mysqlDateTime6'           => '10000-01-01 00.00.00.000000',

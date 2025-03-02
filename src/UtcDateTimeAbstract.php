@@ -14,36 +14,6 @@ use Throwable;
 abstract class UtcDateTimeAbstract implements UtcDateTimeInterface
 {
     /**
-     * Minimum supported Unix timestamp representing 1000-01-01 00:00:00 UTC.
-     */
-    private const int UNIX_TIMESTAMP_MIN = -30610224000;
-
-    /**
-     * Maximum supported Unix timestamp representing 9999-12-31 23:59:59 UTC.
-     */
-    private const int UNIX_TIMESTAMP_MAX = 253402300799;
-
-    /**
-     * Minimum supported Unix milli timestamp representing 1000-01-01 00:00:00.000 UTC.
-     */
-    private const int UNIX_MILLI_TIMESTAMP_MIN = -30610224000000;
-
-    /**
-     * Maximum supported Unix milli timestamp representing 9999-12-31 23:59:59.999 UTC.
-     */
-    private const int UNIX_MILLI_TIMESTAMP_MAX = 253402300799999;
-
-    /**
-     * Minimum supported Unix micro timestamp representing 1000-01-01 00:00:00.000000 UTC.
-     */
-    private const int UNIX_MICRO_TIMESTAMP_MIN = -30610224000000000;
-
-    /**
-     * Maximum supported Unix micro timestamp representing 9999-12-31 23:59:59.999999 UTC.
-     */
-    private const int UNIX_MICRO_TIMESTAMP_MAX = 253402300799999999;
-
-    /**
      * @var DateTimeImmutable   Internal representation of the UTC date and time.
      */
     private DateTimeImmutable $dateTimeImmutable;
@@ -104,15 +74,15 @@ abstract class UtcDateTimeAbstract implements UtcDateTimeInterface
             );
         }
 
-        if ($dateTimeImmutable->getTimestamp() < self::UNIX_TIMESTAMP_MIN):
+        if ($dateTimeImmutable->getTimestamp() < UtcDateTimeInterface::UNIX_TIMESTAMP_MIN):
             throw new UtcDateTimeException(message: sprintf(
                 'Current Unix timestamp %d is less than minimum supported Unix timestamp %d.',
-                $dateTimeImmutable->getTimestamp(), self::UNIX_TIMESTAMP_MIN
+                $dateTimeImmutable->getTimestamp(), UtcDateTimeInterface::UNIX_TIMESTAMP_MIN
             ));
-        elseif ($dateTimeImmutable->getTimestamp() > self::UNIX_TIMESTAMP_MAX):
+        elseif ($dateTimeImmutable->getTimestamp() > UtcDateTimeInterface::UNIX_TIMESTAMP_MAX):
             throw new UtcDateTimeException(message: sprintf(
                 'Current Unix timestamp %d is greater than maximum supported Unix timestamp %d.',
-                $dateTimeImmutable->getTimestamp(), self::UNIX_TIMESTAMP_MAX
+                $dateTimeImmutable->getTimestamp(), UtcDateTimeInterface::UNIX_TIMESTAMP_MAX
             ));
         endif;
 
@@ -127,15 +97,15 @@ abstract class UtcDateTimeAbstract implements UtcDateTimeInterface
      */
     protected static function createDateTimeImmutableFromUnixTimestamp(int $unixTimestamp): DateTimeImmutable
     {
-        if ($unixTimestamp < self::UNIX_TIMESTAMP_MIN):
+        if ($unixTimestamp < UtcDateTimeInterface::UNIX_TIMESTAMP_MIN):
             throw new UtcDateTimeException(message: sprintf(
                 'Unix timestamp %d is less than minimum supported Unix timestamp %d.',
-                $unixTimestamp, self::UNIX_TIMESTAMP_MIN
+                $unixTimestamp, UtcDateTimeInterface::UNIX_TIMESTAMP_MIN
             ));
-        elseif ($unixTimestamp > self::UNIX_TIMESTAMP_MAX):
+        elseif ($unixTimestamp > UtcDateTimeInterface::UNIX_TIMESTAMP_MAX):
             throw new UtcDateTimeException(message: sprintf(
                 'Unix timestamp %d is greater than maximum supported Unix timestamp %d.',
-                $unixTimestamp, self::UNIX_TIMESTAMP_MAX
+                $unixTimestamp, UtcDateTimeInterface::UNIX_TIMESTAMP_MAX
             ));
         endif;
 
@@ -163,15 +133,15 @@ abstract class UtcDateTimeAbstract implements UtcDateTimeInterface
      */
     protected static function createDateTimeImmutableFromUnixMilliTimestamp(int $unixMilliTimestamp): DateTimeImmutable
     {
-        if ($unixMilliTimestamp < self::UNIX_MILLI_TIMESTAMP_MIN):
+        if ($unixMilliTimestamp < UtcDateTimeInterface::UNIX_MILLI_TIMESTAMP_MIN):
             throw new UtcDateTimeException(message: sprintf(
                 'Unix milli timestamp %d is less than minimum supported Unix milli timestamp %d.',
-                $unixMilliTimestamp, self::UNIX_MILLI_TIMESTAMP_MIN
+                $unixMilliTimestamp, UtcDateTimeInterface::UNIX_MILLI_TIMESTAMP_MIN
             ));
-        elseif ($unixMilliTimestamp > self::UNIX_MILLI_TIMESTAMP_MAX):
+        elseif ($unixMilliTimestamp > UtcDateTimeInterface::UNIX_MILLI_TIMESTAMP_MAX):
             throw new UtcDateTimeException(message: sprintf(
                 'Unix milli timestamp %d is greater than maximum supported Unix milli timestamp %d.',
-                $unixMilliTimestamp, self::UNIX_MILLI_TIMESTAMP_MAX
+                $unixMilliTimestamp, UtcDateTimeInterface::UNIX_MILLI_TIMESTAMP_MAX
             ));
         endif;
 
@@ -208,15 +178,15 @@ abstract class UtcDateTimeAbstract implements UtcDateTimeInterface
      */
     protected static function createDateTimeImmutableFromUnixMicroTimestamp(int $unixMicroTimestamp): DateTimeImmutable
     {
-        if ($unixMicroTimestamp < self::UNIX_MICRO_TIMESTAMP_MIN):
+        if ($unixMicroTimestamp < UtcDateTimeInterface::UNIX_MICRO_TIMESTAMP_MIN):
             throw new UtcDateTimeException(message: sprintf(
                 'Unix micro timestamp %d is less than minimum supported Unix micro timestamp %d.',
-                $unixMicroTimestamp, self::UNIX_MICRO_TIMESTAMP_MIN
+                $unixMicroTimestamp, UtcDateTimeInterface::UNIX_MICRO_TIMESTAMP_MIN
             ));
-        elseif ($unixMicroTimestamp > self::UNIX_MICRO_TIMESTAMP_MAX):
+        elseif ($unixMicroTimestamp > UtcDateTimeInterface::UNIX_MICRO_TIMESTAMP_MAX):
             throw new UtcDateTimeException(message: sprintf(
                 'Unix micro timestamp %d is greater than maximum supported Unix micro timestamp %d.',
-                $unixMicroTimestamp, self::UNIX_MICRO_TIMESTAMP_MAX
+                $unixMicroTimestamp, UtcDateTimeInterface::UNIX_MICRO_TIMESTAMP_MAX
             ));
         endif;
 
@@ -276,16 +246,15 @@ abstract class UtcDateTimeAbstract implements UtcDateTimeInterface
             throw new UtcDateTimeException(message: sprintf('MySQL date and time "%s" is not valid.', $mysqlDateTime6));
         endif;
 
-        $unixTimestamp = $dateTimeImmutable->getTimestamp();
-        if ($unixTimestamp < self::UNIX_TIMESTAMP_MIN):
+        if ($mysqlDateTime6 < UtcDateTimeInterface::MYSQL_DATETIME6_MIN):
             throw new UtcDateTimeException(message: sprintf(
-                'MySQL date and time "%s" is equal to Unix timestamp %d, which is less than minimum supported Unix timestamp %d.',
-                $mysqlDateTime6, $unixTimestamp, self::UNIX_TIMESTAMP_MIN
+                'MySQL date and time "%s" is less than minimum supported MySQL date and time "%s".',
+                $mysqlDateTime6, UtcDateTimeInterface::MYSQL_DATETIME6_MIN
             ));
-        elseif ($unixTimestamp > self::UNIX_TIMESTAMP_MAX):
+        elseif ($mysqlDateTime6 > UtcDateTimeInterface::MYSQL_DATETIME6_MAX):
             throw new UtcDateTimeException(message: sprintf(
-                'MySQL date and time "%s" is equal to Unix timestamp %d, which is greater than maximum supported Unix timestamp %d.',
-                $mysqlDateTime6, $unixTimestamp, self::UNIX_TIMESTAMP_MAX
+                'MySQL date and time "%s" is greater than maximum supported MySQL date and time "%s".',
+                $mysqlDateTime6, UtcDateTimeInterface::MYSQL_DATETIME6_MAX
             ));
         endif;
 
