@@ -5,13 +5,14 @@ use DateTimeImmutable;
 use DateTimeZone;
 use MawebDK\Clock\Clock;
 use MawebDK\PregMatch\PregMatch;
+use Stringable;
 use Throwable;
 
 /**
  * Common properties and methods for UtcDateTime and UtcDateTimeImmutable.
  * Valid date and time range is from 1000-01-01 00:00:00.000000 to 9999-12-31 23:59:59.999999.
  */
-abstract class UtcDateTimeAbstract implements UtcDateTimeInterface
+abstract class UtcDateTimeAbstract implements UtcDateTimeInterface, Stringable
 {
     /**
      * @var DateTimeImmutable   Internal representation of the UTC date and time.

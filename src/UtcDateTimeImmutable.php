@@ -1,11 +1,13 @@
 <?php
 namespace MawebDK\UtcDateTime;
 
+use Stringable;
+
 /**
  * Representation of a UTC date and time.
  * This class behaves the same as UtcDateTime, except new objects are returned when modification methods are called.
  */
-class UtcDateTimeImmutable extends UtcDateTimeAbstract implements UtcDateTimeInterface
+class UtcDateTimeImmutable extends UtcDateTimeAbstract implements UtcDateTimeInterface, Stringable
 {
     /**
      * Returns a new UtcDateTimeImmutable object representing the current UTC date and time.
@@ -59,5 +61,14 @@ class UtcDateTimeImmutable extends UtcDateTimeAbstract implements UtcDateTimeInt
     public static function createFromMysqlDateTime6(string $mysqlDateTime6): self
     {
         return new self(dateTimeImmutable: self::createDateTimeImmutableFromMysqlDateTime6(mysqlDateTime6: $mysqlDateTime6));
+    }
+
+    /**
+     * Returns a string representation of the object.
+     * @return string   String representation of the object.
+     */
+    public function __toString(): string
+    {
+        return sprintf('UtcDateTimeImmutable(%s)', $this->formatMysqlDateTime6());
     }
 }
