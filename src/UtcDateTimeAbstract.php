@@ -5,6 +5,7 @@ use DateTimeImmutable;
 use DateTimeZone;
 use MawebDK\Clock\Clock;
 use MawebDK\PregMatch\PregMatch;
+use MawebDK\ToStringBuilder\ToStringBuilder;
 use Stringable;
 use Throwable;
 
@@ -57,6 +58,19 @@ abstract class UtcDateTimeAbstract implements UtcDateTimeInterface, Stringable
     public function getDateTimeImmutable(): DateTimeImmutable
     {
         return $this->dateTimeImmutable;
+    }
+
+    /**
+     * Returns a string representation of the object.
+     * @return string   String representation of the object.
+     */
+    public function __toString(): string
+    {
+        $toStringBuilder = new ToStringBuilder(object: $this);
+
+        return $toStringBuilder
+            ->add(name: 'mysqlDateTime6', value: $this->formatMysqlDateTime6())
+            ->build();
     }
 
     /**

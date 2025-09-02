@@ -62,13 +62,4 @@ class UtcDateTimeImmutable extends UtcDateTimeAbstract implements UtcDateTimeInt
     {
         return new self(dateTimeImmutable: self::createDateTimeImmutableFromMysqlDateTime6(mysqlDateTime6: $mysqlDateTime6));
     }
-
-    /**
-     * Returns a string representation of the object.
-     * @return string   String representation of the object.
-     */
-    public function __toString(): string
-    {
-        return sprintf('UtcDateTimeImmutable(%s)', $this->formatMysqlDateTime6());
-    }
 }

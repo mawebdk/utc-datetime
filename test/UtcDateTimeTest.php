@@ -536,7 +536,7 @@ class UtcDateTimeTest extends TestCase
         $utcDateTime = UtcDateTime::createFromMysqlDateTime6(mysqlDateTime6: '1999-12-31 12:34:56.999999');
 
         $this->assertSame(
-            expected: 'UtcDateTime(1999-12-31 12:34:56.999999)',
+            expected: 'MawebDK\UtcDateTime\UtcDateTime{"mysqlDateTime6": "1999-12-31 12:34:56.999999"}',
             actual: (string) $utcDateTime
         );
     }
