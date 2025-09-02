@@ -564,7 +564,7 @@ class UtcDateTimeImmutableTest extends TestCase
         $utcDateTime = UtcDateTimeImmutable::createFromMysqlDateTime6(mysqlDateTime6: '1999-12-31 12:34:56.999999');
 
         $this->assertSame(
-            expected: 'UtcDateTimeImmutable(1999-12-31 12:34:56.999999)',
+            expected: 'MawebDK\UtcDateTime\UtcDateTimeImmutable{"mysqlDateTime6": "1999-12-31 12:34:56.999999"}',
             actual: (string) $utcDateTime
         );
     }
